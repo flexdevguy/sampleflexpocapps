@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- http://blog.flexexamples.com/2009/10/27/setting-word-wrapping-on-a-spark-list-control-in-flex-4/ -->
+<s:Application name="Spark_List_layout_horizontalAlign_test"
+			   xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/halo">
+	
+	<s:List id="lst"
+			alternatingItemColors="[#DFDFDF,#EEEEEE]"
+			useVirtualLayout="true"
+			width="200" height="100"
+			horizontalCenter="0" verticalCenter="0">
+		<s:layout>
+			<s:VerticalLayout gap="0" horizontalAlign="justify" />
+		</s:layout>
+		<s:dataProvider>
+			<s:ArrayList>
+				<fx:Object label="Lorem ipsum dolor sit amet, consectetur adipiscing elit." />
+				<fx:Object label="Fusce pulvinar nisi ac leo rhoncus nec malesuada arcu accumsan." />
+				<fx:Object label="Sed at metus eu mauris malesuada ornare." />
+				<fx:Object label="Vestibulum et ante non arcu facilisis sagittis." />
+				<fx:Object label="Praesent euismod bibendum tortor, pharetra pharetra nibh ultricies convallis." />
+				<fx:Object label="tis." />
+				<fx:Object label="Nulla aliquet ante nec nisi auctor et pharetra leo blandit." />
+			</s:ArrayList>
+		</s:dataProvider>
+	</s:List>
+	
+</s:Application>
