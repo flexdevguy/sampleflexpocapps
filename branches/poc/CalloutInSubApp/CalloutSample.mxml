@@ -1,0 +1,45 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			   xmlns:s="library://ns.adobe.com/flex/spark"
+			   creationComplete="onCreationComplete_Handler(event)"
+			    >
+	<fx:Style>
+       
+		@namespace s "library://ns.adobe.com/flex/spark";
+		s|Callout.myCalloutStyle{
+			borderThickness:2;
+			borderColor:halogreen;
+			backgroundColor:#787878; 
+			contentBackgroundColor:haloblue;
+			contentBackgroundAppearance:"flat";
+		}
+	</fx:Style>
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.core.DragSource;
+			import mx.core.UIComponent;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			import spark.components.Alert;
+			
+			import mx.managers.PopUpManager;
+			
+			public var popupManager:PopUpManager;
+			private function onCreationComplete_Handler(event:Event):void
+			{
+				
+			}
+		
+			
+		]]>
+	</fx:Script>
+	<s:layout>
+		<s:HorizontalLayout gap="50" />
+	</s:layout>
+	<s:SWFLoader id="loader1" width="100%" height="100%" source="SampleApplication1.swf" />
+		
+	
+	<s:SWFLoader id="loader2" width="100%" height="100%" source="SampleApplication2.swf"/>
+	
+	
+</s:Application>

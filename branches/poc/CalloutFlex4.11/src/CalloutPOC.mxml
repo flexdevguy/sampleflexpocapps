@@ -1,0 +1,129 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			creationComplete="onCreationComplete_Handler(event)"
+			>
+	<fx:Style>
+       
+        @namespace s "library://ns.adobe.com/flex/spark";
+        s|Callout.myCalloutStyle{
+			borderThickness:2;
+			borderColor:halogreen;
+            backgroundColor:#787878; 
+			contentBackgroundColor:haloblue;
+            contentBackgroundAppearance:"flat";
+			}
+    </fx:Style>
+			
+	<fx:Script>
+		<![CDATA[
+			import flash.net.FileFilter;
+			import flash.net.FileReference;
+	
+			import mx.core.DragSource;
+			import mx.core.UIComponent;
+			import mx.events.DragEvent;
+			import mx.managers.DragManager;
+			
+			import spark.components.Alert;
+			
+			[Embed('assets/icons/warning.png')]
+			private const iconCls:Class;
+			private function onCreationComplete_Handler(event):void
+			{
+				
+			}
+			private function dragEnterHandler(e:DragEvent):void {
+                DragManager.acceptDragDrop(e.currentTarget as UIComponent);
+            }
+ 
+            private function dragDropHandler(e:DragEvent):void {
+                (e.dragInitiator as UIComponent).x = e.currentTarget.mouseX;
+				(e.dragInitiator as UIComponent).y = e.currentTarget.mouseY;
+            }
+			
+			private function onBtnCalloutMouseDown_Handler(event:MouseEvent):void
+			{
+				DragManager.doDrag(event.currentTarget as UIComponent, null, event);
+			}
+			
+			private function onBtnIconReplaceClick_Handler(event:MouseEvent):void
+			{
+				var fr:FileReference = new FileReference();
+				fr.addEventListener(Event.SELECT, function onFileSelect_Handler(event:Event):void
+				{
+					//trace("File Select native Path::"+(event.target).nativePath);
+					//var file:FileReference = FileReference(event.target);
+					//if(file)
+					//	btnIconReplace.setStyle('icon',file.nativePath);
+				});
+				fr.addEventListener(Event.COMPLETE, function onFileSelectComplete_Handler(event:Event):void
+				{
+					
+					btnIconReplace.setStyle('icon',(event.target).data);
+				});
+				fr.browse([getImageTypeFilter()]);
+			}
+			private function getImageTypeFilter():FileFilter {
+				return new FileFilter("Images (*.jpg, *.jpeg, *.gif, *.png)", "*.jpg;*.jpeg;*.gif;*.png");
+			}
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Callout id="myCallout" styleName="myCalloutStyle"
+				horizontalPosition="middle" verticalPosition="after">
+			<s:VGroup paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5">
+				<s:Label text="Arrow Custom positioned &amp; Stylable" width="100%" textAlign="center"/>
+				<s:Button id="btnOne" label="Button One"/>
+				<s:Button id="btnTwo" label="Button Two" />
+				<s:Button id="btnThree" label="Long Label Button ..........." click="Alert.show('Button Clicked')"/>
+			</s:VGroup>
+		</s:Callout>
+	</fx:Declarations>
+	<s:SkinnableContainer width="100%" height="100%" dragEnter="dragEnterHandler(event);"
+            dragDrop="dragDropHandler(event);" backgroundColor="0xF1F1F1">
+		<s:HGroup width="50%" height="50%" horizontalCenter="0" verticalCenter="0"
+					 paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5">
+			<s:TextInput id="txtCallout" focusIn="myCallout.open(txtCallout)"
+				prompt="Click to open Callout"/>
+			<s:Button id="btnClose" label="Close" click="myCallout.close();btnClose.setFocus();"/>
+
+			<s:VGroup>
+				<s:Label text="Embeded Icons"/>
+				<s:Button id="btnIcon" label="Button with Icon Embeded" icon="@Embed('assets/icons/addWorkFlow.png')"/>
+				<s:Button id="btnIcon2" label="Click me to add icon" click="btnIcon2.setStyle('icon',iconCls);"/>
+				<mx:Spacer height="100"/>
+				<s:Label text="relative path to Icon source"/>
+				<!--<mx:Button id="btnIconmx" label="Icon placed top" icon="assets/icons/stop.png"/>-->
+				<s:Button id="btnIcon3" label="Icon placed top" icon="assets/icons/Default_login.png" iconPlacement="top"/>
+				<s:Button id="btnIconReplace" label="Change my Icon" icon="assets/icons/stop.png" 
+				iconPlacement="bottom" click="onBtnIconReplaceClick_Handler(event)" />
+			</s:VGroup>
+			
+		</s:HGroup>
+		<s:CalloutButton id="btnCallout" label="This is Draggable Callout Button" 
+			mouseDown="onBtnCalloutMouseDown_Handler(event)" x="100"
+			y="100" >
+			<s:calloutLayout>
+				<s:VerticalLayout horizontalAlign="center" verticalAlign="middle"/>
+			</s:calloutLayout>
+			<s:calloutContent>
+				<s:Label text="This is Callout Button Component's Content" width="100%" textAlign="center"/>
+				<s:Label text="Auto positioned Arrow" width="100%" textAlign="center"/>
+				<s:Button id="btnInsideCallout" label="Callout Contents"/>
+				<s:List>
+					<s:ArrayCollection>
+						<fx:String>List item 1</fx:String>
+						<fx:String>List item 2</fx:String>
+						<fx:String>List item 3</fx:String>
+						<fx:String>List item 4</fx:String>
+						<fx:String>List item 5</fx:String>
+					</s:ArrayCollection>
+				</s:List>
+			</s:calloutContent>
+		</s:CalloutButton>
+		
+	</s:SkinnableContainer>
+	
+</s:Application>

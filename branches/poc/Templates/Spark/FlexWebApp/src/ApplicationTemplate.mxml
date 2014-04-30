@@ -1,0 +1,21 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+	</fx:Style>
+	
+	<fx:Script>
+	<![CDATA[
+		
+	]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+</s:Application>

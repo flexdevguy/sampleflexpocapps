@@ -1,0 +1,89 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark">
+	<fx:Script>
+		<![CDATA[
+			import mx.events.FlexEvent;
+			import mx.events.FlexMouseEvent;
+			import mx.collections.ArrayCollection;
+			import mx.controls.Alert;
+			[Bindable]
+			private var gridData:ArrayCollection = new ArrayCollection([{id:"1", name:"Vinoth", desg:"Associate Software Engineer", rating:"1"},
+			{id:"2", name:"Ezhil", desg:"Associate Software Engineer", rating:"2"},
+			{id:"3", name:"Raja Jaganathan", desg:"Sr. Software Engineer", rating:"5"},
+			{id:"4", name:"Subha", desg:"Sr. Software Engineer", rating:"4"},
+			{id:"5", name:"Selvakumar pandiyan", desg:"Software Engineer", rating:"4"}]);
+			
+			
+			
+		]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		<s:Callout id="myCallout" styleName="myCalloutStyle"
+				horizontalPosition="middle" verticalPosition="after" 
+				creationComplete="onCalloutCreationComplete_Handler(event);">
+			<fx:Script>
+			<![CDATA[
+				private function onCalloutCreationComplete_Handler(event:FlexEvent):void
+				{
+					if(myCallout)
+						myCallout.addEventListener(FlexMouseEvent.MOUSE_DOWN_OUTSIDE, function closeCallout(event:FlexMouseEvent):void
+						{
+							myCallout.close();
+						});
+				}
+			]]>
+			</fx:Script>
+			<s:VGroup paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5">
+				<s:Label text="Arrow Custom positioned &amp; Stylable" width="100%" textAlign="center"/>
+				<s:Button id="btnOne" label="Button One"/>
+				<s:Button id="btnTwo" label="Button Two" />
+				<s:Button id="btnThree" label="Long Label Button ..........." click="Alert.show('Button Clicked')"/>
+			</s:VGroup>
+		</s:Callout>
+	</fx:Declarations>
+	
+		<s:DataGrid id="dtgEmployees" dataProvider="{gridData}" 
+					horizontalCenter="0" verticalCenter="0" width="50%" editable="true">
+			<s:columns>
+				<s:ArrayList>
+					<s:GridColumn dataField="id" headerText="id"/>
+					<s:GridColumn dataField="name" headerText="Name"/>
+					<s:GridColumn dataField="desg" headerText="Desgination" >
+						<!--<s:itemRenderer>
+							<fx:Component>
+								<s:GridItemRenderer>
+									<s:Label id="labelDisplay" fontStyle="italic" verticalCenter="0"/>
+								</s:GridItemRenderer>
+							</fx:Component>
+						</s:itemRenderer>-->
+					</s:GridColumn>
+					<s:GridColumn dataField="rating" headerText="Rating[1-5]" editable="false">
+						<s:itemRenderer>
+							<fx:Component>
+								<s:GridItemRenderer>
+									<fx:Script>
+										<![CDATA[
+											
+											private function onImgCallClick_Handler(event:MouseEvent):void
+											{
+												//if(outerDocument.myCallout.isOpen)
+												//	outerDocument.myCallout.close();
+												
+												outerDocument.myCallout.open(imgCall);
+												callLater(function():void{
+													outerDocument.myCallout.updatePopUpPosition()
+													});
+											}
+										]]>
+									</fx:Script>
+									<s:Image id="imgCall" source="assets/icons/addWorkFlow.png" click="onImgCallClick_Handler(event)"/>
+								</s:GridItemRenderer>
+							</fx:Component>
+						</s:itemRenderer>
+					</s:GridColumn>
+				</s:ArrayList>
+			</s:columns>
+		</s:DataGrid>
+</s:Application>

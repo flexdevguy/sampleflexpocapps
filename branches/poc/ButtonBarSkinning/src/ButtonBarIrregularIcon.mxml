@@ -1,0 +1,79 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			creationComplete="init();">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		s|ButtonBar.btnBarStyle
+		{
+			color:#353535;
+			chromeColor:haloBlue;
+			fontSize:16;
+		}
+		s|ButtonBar.btnBarStyle s|ButtonBarButton:upAndSelected,
+		s|ButtonBar.btnBarStyle	s|ButtonBarButton:overAndSelected,
+		s|ButtonBar.btnBarStyle	s|ButtonBarButton:downAndSelected,
+		s|ButtonBar.btnBarStyle	s|ButtonBarButton:disabledAndSelected
+		{
+			chromeColor:haloGreen;
+		}
+		s|ButtonBar.btnBarStyle s|ButtonBarButton
+		{
+			cornerRadius:15;
+		}
+		s|ButtonBar.btnBarSkin
+		{
+			skinClass:ClassReference("skins.CustomButtonBarSkin");
+		}
+	</fx:Style>
+	
+	<fx:Script>
+	<![CDATA[
+		import flash.events.*;
+		import mx.collections.ArrayCollection;
+		import mx.core.UIComponent;
+		import mx.core.IVisualElement;
+		
+		[Bindable]
+		private var menuDataWithIcon:ArrayCollection = new ArrayCollection([{label:'Home',icon:'assets/icons/1.png'},{label:'Department',icon:'assets/icons/2.png'},
+																{label:'Achievements',icon:'assets/icons/3.png'},{label:'About',icon:'assets/icons/4.png'}]);
+											
+		[Bindable]
+		private var menuDataWithIrregularIcons:ArrayCollection = new ArrayCollection([{label:'Home',icon:'assets/icons/logo.jpg'},{label:'Department',icon:'assets/icons/2.png'},
+																{label:'Achievements',icon:'assets/icons/3.png'},{label:'About',icon:'assets/icons/4.png'}]);
+		
+		[Bindable]
+		private var menuData:ArrayCollection = new ArrayCollection([{label:'Home'},{label:'Department'},
+																{label:'Achievements'},{label:'About'}]);
+																
+		private var isFirstClick:Boolean = false;
+		private function init():void
+		{
+			
+		}
+	]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+	
+					
+	<s:HGroup  horizontalCenter="0" verticalCenter="0" gap="20">
+		<s:VGroup id="hgBtns" verticalAlign="middle" gap="20">
+			<s:VGroup>
+				<s:Label text="Default ButtonBar Behaviour"/>
+				<s:ButtonBar id="btnBarIrrIcons" dataProvider="{menuDataWithIrregularIcons}" 
+					requireSelection="true"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:Label text="Height Fixed Behaviour"/>
+				<s:ButtonBar id="btnBarIrrIcons1" dataProvider="{menuDataWithIrregularIcons}" 
+					requireSelection="true" height="35"/>
+			</s:VGroup>
+		</s:VGroup>
+	</s:HGroup>
+</s:Application>

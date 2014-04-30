@@ -1,0 +1,119 @@
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009"
+			xmlns:mx="library://ns.adobe.com/flex/mx"
+			xmlns:s="library://ns.adobe.com/flex/spark"
+			creationComplete="init();">
+	
+	<fx:Style>
+		@namespace s "library://ns.adobe.com/flex/spark";
+		@namespace mx "library://ns.adobe.com/flex/mx";
+		
+		s|ButtonBar.btnBarStyle
+		{
+			color:#353535;
+			chromeColor:haloBlue;
+			fontSize:16;
+		}
+		s|ButtonBar.btnBarStyle s|ButtonBarButton:upAndSelected,
+		s|ButtonBar.btnBarStyle	s|ButtonBarButton:overAndSelected,
+		s|ButtonBar.btnBarStyle	s|ButtonBarButton:downAndSelected,
+		s|ButtonBar.btnBarStyle	s|ButtonBarButton:disabledAndSelected
+		{
+			chromeColor:haloGreen;
+		}
+		s|ButtonBar.btnBarStyle s|ButtonBarButton
+		{
+			cornerRadius:15;
+		}
+		s|ButtonBar.btnBarSkin
+		{
+			skinClass:ClassReference("skins.CustomButtonBarSkin");
+		}
+	</fx:Style>
+	
+	<fx:Script>
+	<![CDATA[
+		import flash.events.*;
+		import mx.collections.ArrayCollection;
+		import mx.core.UIComponent;
+		import mx.core.IVisualElement;
+		
+		[Bindable]
+		private var menuDataWithIcon:ArrayCollection = new ArrayCollection([{label:'Home',icon:'assets/icons/1.png'},{label:'Department',icon:'assets/icons/2.png'},
+																{label:'Achievements',icon:'assets/icons/3.png'},{label:'About',icon:'assets/icons/4.png'}]);
+											
+		[Bindable]
+		private var menuData:ArrayCollection = new ArrayCollection([{label:'Home'},{label:'Department'},
+																{label:'Achievements'},{label:'About'}]);
+																
+		private var isFirstClick:Boolean = false;
+		private function init():void
+		{
+			trace("Creation Complete");
+			//btnBarStyled.addEventListener("cornerRadiusChanged",onBtnBarStyleChanged_Handler);
+			btnBarDefault.setStyle('cornerRadius',20);
+		}
+		private function onBtnBarStyleChanged_Handler(event:Event):void
+		{
+			var cr:int = btnBarStyled.getStyle('cornerRadius');
+			trace("Corner radius changed value :: "+btnBarStyled.getStyle('cornerRadius').toString());
+		}
+	]]>
+	</fx:Script>
+	
+	<fx:Declarations>
+		
+	</fx:Declarations>
+
+	<s:HGroup  horizontalCenter="0" verticalCenter="0" gap="20">
+		<s:VGroup id="hgBtns" verticalAlign="middle" gap="20">
+			<s:VGroup>
+				<s:Label text="Default ButtonBar"/>
+				<!--<s:Button id="btnIcon" icon="assets/icons/1.png" label="Icon Button"/>-->
+				<s:ButtonBar id="btnBarDefault" dataProvider="{menuDataWithIcon}" requireSelection="true" labelField="label" 
+				iconField="icon" iconPlacement="top"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:Label text="Styled ButtonBar"/>
+				<s:ButtonBar id="btnBarStyled" dataProvider="{menuData}" click="onBtnBarStyleChanged_Handler(event)"
+					styleName="btnBarStyle" requireSelection="true" height="30"/>
+			</s:VGroup>
+			<s:VGroup>
+				<s:Label text="Skinned ButtonBar"/>
+				<s:ButtonBar id="btnBarSkinned" dataProvider="{menuDataWithIcon}" 
+					styleName="btnBarSkin" requireSelection="true" height="35" labelField="label" iconField="icon"/>
+			</s:VGroup>
+			
+			<s:VGroup>
+				<s:Label text="Toggle False Skinned ButtonBar"/>
+				<s:ButtonBar id="btnBarTglFalseSkinned" dataProvider="{menuDataWithIcon}" 
+					 requireSelection="true" height="35" labelField="label" iconField="icon" skinClass="skins.BtnBarToggleFalseSkin.ButtonBarSkin"/>
+				
+			</s:VGroup>
+		</s:VGroup>
+		<s:Line height="100%">
+			<s:stroke>
+				<s:SolidColorStroke color="0x000000"/>
+			</s:stroke>
+		</s:Line>
+		<s:HGroup verticalAlign="middle" gap="20">
+			<s:VGroup>
+				<s:Label text="Vertical ButtonBar Without icon"/>
+				<s:ButtonBar id="btnBarVertical1" dataProvider="{menuData}" requireSelection="true" labelField="label">
+					<s:layout>
+						<s:VerticalLayout gap="-1" horizontalAlign="justify"/>
+					</s:layout>
+				</s:ButtonBar>
+			</s:VGroup>	
+			
+			<s:VGroup>
+				<s:Label text="Vertical ButtonBar With icon"/>
+				<s:ButtonBar id="btnBarVertical2" dataProvider="{menuDataWithIcon}" requireSelection="true" labelField="label" 
+					iconField="icon" iconPlacement="top">
+					<s:layout>
+						<s:VerticalLayout gap="-1" horizontalAlign="justify"/>
+					</s:layout>
+				</s:ButtonBar>
+			</s:VGroup>	
+		</s:HGroup>
+	</s:HGroup>
+</s:Application>

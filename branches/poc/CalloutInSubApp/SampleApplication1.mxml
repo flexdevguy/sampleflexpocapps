@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<s:Application xmlns:fx="http://ns.adobe.com/mxml/2009" 
+			   xmlns:s="library://ns.adobe.com/flex/spark" 
+			   xmlns:mx="library://ns.adobe.com/flex/mx" initialize="application1_initializeHandler(event)" 
+			   creationComplete="application1_creationCompleteHandler(event)">
+	
+	<fx:Script>
+		<![CDATA[
+			import mx.controls.Alert;
+			import mx.events.FlexEvent;
+			import mx.collections.ArrayCollection;
+			import spark.events.PopUpEvent;
+			
+			 [Bindable]
+            private var dpFlat:ArrayCollection = new ArrayCollection([
+              {Region:"Southwest", Territory:"Arizona", 
+                  Territory_Rep:"Barbara Jennings", Actual:38865, Estimate:40000}, 
+              {Region:"Southwest", Territory:"Arizona", 
+                  Territory_Rep:"Dana Binn", Actual:29885, Estimate:30000},  
+              {Region:"Southwest", Territory:"Central California", 
+                  Territory_Rep:"Joe Smith", Actual:29134, Estimate:30000},  
+              {Region:"Southwest", Territory:"Nevada", 
+                  Territory_Rep:"Bethany Pittman", Actual:52888, Estimate:45000},  
+              {Region:"Southwest", Territory:"Northern California", 
+                  Territory_Rep:"Lauren Ipsum", Actual:38805, Estimate:40000}, 
+              {Region:"Southwest", Territory:"Northern California", 
+                  Territory_Rep:"T.R. Smith", Actual:55498, Estimate:40000},  
+              {Region:"Southwest", Territory:"Southern California", 
+                  Territory_Rep:"Alice Treu", Actual:44985, Estimate:45000}, 
+              {Region:"Southwest", Territory:"Southern California", 
+                  Territory_Rep:"Jane Grove", Actual:44913, Estimate:45000}
+            ]);
+			
+			protected function txtCallout_mouseDownHandler(event:MouseEvent):void
+			{
+				// TODO Auto-generated method stub
+				trace("hi");
+			}
+			
+			protected function label1_clickHandler(event:MouseEvent):void
+			{
+				trace("112" +btnOne)
+				var bnt:Button = new Button();
+				bnt.label = "I am BUtton";
+				//myCallout.addElement(bnt);
+				trace("myCallout  "+myCallout);
+				trace("myCallout  "+btnOne);
+				trace("myCallout  "+btnTwo);
+			}
+			
+			protected function application1_creationCompleteHandler(event:FlexEvent):void
+			{
+				
+				//myCallout.validateNow();
+				//myCallout.createDeferredContent();
+				trace("myCallout  "+myCallout);
+				trace("myCallout  "+btnOne);
+				trace("myCallout  "+btnTwo);
+				
+				//myCallout.removeAllElements();
+				myCallout.addElement(myADG);
+			}
+			
+			protected function myCallout_creationCompleteHandler(event:FlexEvent):void
+			{
+				trace("Cllot createcomp");
+				
+			}
+			
+			protected function myCallout_closeHandler(event:PopUpEvent):void
+			{
+				txtCallout.setFocus();
+			}
+			
+			protected function myCallout_initializeHandler(event:FlexEvent):void
+			{
+				trace("callout initialize");
+				
+			}
+			
+			protected function application1_initializeHandler(event:FlexEvent):void
+			{
+				vgrp.visible = true;
+				vgrp.includeInLayout = true;
+				myCallout.addElement(vgrp);
+				this["lbl"].text = "Value Changed";
+				
+			}
+			private function clickHandler():void
+			{
+				trace("  "+this["btnOne"]);
+				this["lbl"].text = "Value Changed again";
+			}
+			
+		]]> 
+	</fx:Script>
+	<fx:Declarations>
+		<s:Callout id="myCallout" styleName="myCalloutStyle" mouseDownOutside="{myCallout.close()}" close="myCallout_closeHandler(event)"
+				   horizontalPosition="before" verticalPosition="middle" creationPolicy="all" initialize="myCallout_initializeHandler(event)"
+				   creationComplete="myCallout_creationCompleteHandler(event)">
+					
+					
+			
+		</s:Callout>
+	</fx:Declarations>
+	<s:VGroup id="vgrp" paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5" visible="true" includeInLayout="true">
+		<s:Label id="lbl" text=" I am Arrow Custom positioned &amp; Stylable" width="100%" textAlign="center"/>
+		<s:Button id="btnOne" label="Button One"/>
+		<s:Button id="btnTwo" label="Button Two" />
+		<s:Button id="btnThree" label="Long Label Button ..........." click="Alert.show('Button Clicked')"/>
+	</s:VGroup>
+	<s:Rect left="0" right="0" bottom="0" top="0">
+		<s:stroke>
+			<s:SolidColorStroke color="0x000000" weight="2"/>
+		</s:stroke>
+		<s:fill>
+			<s:RadialGradient>
+				<s:entries>
+					<s:GradientEntry color="0x0056FF" ratio="0.00" alpha="0.5"/>
+					<s:GradientEntry color="0x00CC99" ratio="0.33" alpha="0.5"/>
+					<s:GradientEntry color="0xECEC21" ratio="0.66" alpha="0.5"/>
+				</s:entries>
+			</s:RadialGradient>
+		</s:fill>
+	</s:Rect>
+	<s:Label text="Application 1" fontSize="14" horizontalCenter="0" click="label1_clickHandler(event)" />
+	<s:BorderContainer  borderColor="#ff00f0"  verticalCenter="00" horizontalCenter="0" 
+						 backgroundColor="0xF1F1F1">
+		<s:Scroller width="100%" height="100%" >
+			<s:VGroup width="400" height="200" gap="50" horizontalCenter="0" verticalCenter="0"
+					  paddingTop="5" paddingBottom="5" paddingLeft="5" paddingRight="5">
+				<s:TextInput id="txtCallout" mouseDown="txtCallout_mouseDownHandler(event)" click="myCallout.open(txtCallout)"
+							 prompt="Click to open Callout"/>
+				<s:Button id="btnClose" label="Close" click="clickHandler(); myCallout.close();btnClose.setFocus();"/>
+				<s:TextInput id="txtCallout1" focusIn="myCallout.open(txtCallout)"
+							 prompt="Click to open Callout"/>
+				<s:TextInput id="txtCallout11" focusIn="myCallout.open(txtCallout)"
+							 prompt="Click to open Callout"/>
+				<s:TextInput id="txtCallout111" focusIn="myCallout.open(txtCallout)"
+							 prompt="Click to open Callout"/>
+				<s:TextInput id="txtCallout1111" focusIn="myCallout.open(txtCallout)"
+							 prompt="Click to open Callout"/>
+				<s:TextInput id="txtCallout11111" focusIn="myCallout.open(txtCallout)"
+							 prompt="Click to open Callout"/>
+			</s:VGroup>
+		</s:Scroller>
+		
+	</s:BorderContainer>
+	
+	<mx:AdvancedDataGrid id="myADG" 
+            width="100%" height="100%" 
+            initialize="gc.refresh();">        
+            <mx:dataProvider>
+                <mx:GroupingCollection2 id="gc" source="{dpFlat}">
+                    <mx:grouping>
+                        <mx:Grouping>
+                            <mx:GroupingField name="Region"/>
+                            <mx:GroupingField name="Territory"/>
+                        </mx:Grouping>
+                    </mx:grouping>
+                </mx:GroupingCollection2>
+            </mx:dataProvider>        
+            
+            <mx:columns>
+                <mx:AdvancedDataGridColumn dataField="Region"/>
+                <mx:AdvancedDataGridColumn dataField="Territory"/>
+                <mx:AdvancedDataGridColumn dataField="Territory_Rep"
+                    headerText="Territory Rep"/>
+                <mx:AdvancedDataGridColumn dataField="Actual"/>
+                <mx:AdvancedDataGridColumn dataField="Estimate"/>
+            </mx:columns>
+       </mx:AdvancedDataGrid>
+</s:Application>
